@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Küsitlused | Kaspar Noor</title>
+  <meta name="description" content="">
+  <meta name="author" content="Kaspar Noor">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <link rel="stylesheet" href="{% static 'polls/css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'polls/css/skeleton.css' %}">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+    
+    {% if latest_question_list %}
+    <div class="container">
+        <h1 style="text-align: center; margin-top: 20%; font-weight: bold;" class="u-full-width">Anna oma hääl</h1>
+        <p style="text-align: center;">Küsitlustele vastamine on 100% anonüümne ja võtab väikese aja teie päevast.</p>
+        <div class="row">
+      {% for question in latest_question_list %}
+      <div class="one-third column" style="margin-top: 20%">
+        <a href={% url 'polls:detail' question.id %}><h4>{{ question.question_text }}</h4></a>
+        <p>{{ question.question_description }}</p>
+        <a class="button" href="{% url 'polls:detail' question.id %}">Anna oma hääl</a>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+    {% else %}
+    <p>Ühtegi küsitlust ei ole hetkel.</p>
+    {% endif %}
+</body>
+</html>
