@@ -1,1 +1,109 @@
-hey
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8" />
+    <title>Tunniplaan | Kaspar Noor</title>
+    <meta name="description" content="" />
+    <meta name="author" content="Kaspar Noor" />
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link
+      href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <link rel="stylesheet" href="{% static 'polls/css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'polls/css/skeleton.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'tunniplaan/css/jquery.countdown.css' %}"
+    />
+
+    <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  </head>
+  <body>
+    {% if info %}
+    <div class="container">
+      <h1
+        style="text-align: center; margin-top: 5%; font-weight: bold"
+        class="u-full-width"
+      >
+        141c Tunniplaani rakendus
+      </h1>
+      <p style="text-align: center">
+        See rakendus teeb teie elu ehk natukene lihtsamaks.
+      </p>
+      <div style="margin-top: 20%" class="row">
+        {% for infopiece in info.1 %}
+        <div class="four columns">
+          <h2 style="text-align: center">{{infopiece}}</h2>
+        </div>
+        {% endfor %}
+      </div>
+      <ul id="countdown">
+        <li>
+          <span class="days">00</span>
+          <p class="days_text">Päeva</p>
+        </li>
+        <li class="seperator">:</li>
+        <li>
+          <span class="hours">00</span>
+          <p class="hours_text">Tundi</p>
+        </li>
+        <li class="seperator">:</li>
+        <li>
+          <span class="minutes">00</span>
+          <p class="minutes_text">Minutit</p>
+        </li>
+        <li class="seperator">:</li>
+        <li>
+          <span class="seconds">00</span>
+          <p class="seconds_text">Sekundit</p>
+        </li>
+      </ul>
+    </div>
+    {% else %}
+    <p>Ilmnes viga.</p>
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+      type="text/javascript"
+      src="{% static 'tunniplaan/js/jquery.countdown.js' %}"
+    ></script>
+    <script class="source" type="text/javascript">
+      var now = new Date();
+      var day = now.getDate();
+      var month = now.getMonth() + 1;
+      var year = now.getFullYear() + 1;
+
+      var nextyear = month + "/" + day + "/" + year + " 07:07:07";
+
+      $("#countdown").countdown(
+        {
+          date: nextyear, // TODO Date format: 07/27/2017 17:00:00
+          offset: +2, // TODO Your Timezone Offset
+          day: "Day",
+          days: "Days",
+          hideOnComplete: true,
+        },
+        function (container) {
+          alert("Done!");
+        }
+      );
+    </script>
+  </body>
+</html>

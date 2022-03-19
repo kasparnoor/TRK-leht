@@ -9,94 +9,96 @@ def divide_chunks(l, n):
     for i in range(0, len(l), n): 
         yield l[i:i + n]
 
-URL = "https://real.edu.ee/oppetoo/tunniplaan/4per/Reaal/klassid/d5pe1A_8C.htm"
-page = requests.get(URL)
+def getlessons():
 
-data = []
-soup = BeautifulSoup(page.content, "html.parser")
+    URL = "https://real.edu.ee/oppetoo/tunniplaan/4per/Reaal/klassid/d5pe1A_8C.htm"
+    page = requests.get(URL)
 
-kaheksasklass_table = soup.find("table", {"border" : "3"})
-kaheksasklass_table_rows = kaheksasklass_table.findAll("tr")
-kaheksasklass_table_days = kaheksasklass_table_rows[0]
-kaheksasklass_table_tables = kaheksasklass_table.findAll("table")
+    data = []
+    soup = BeautifulSoup(page.content, "html.parser")
 
-raw_lessons = []
+    kaheksasklass_table = soup.find("table", {"border" : "3"})
+    kaheksasklass_table_rows = kaheksasklass_table.findAll("tr")
+    kaheksasklass_table_days = kaheksasklass_table_rows[0]
+    kaheksasklass_table_tables = kaheksasklass_table.findAll("table")
 
-del kaheksasklass_table_tables[0:6]
+    raw_lessons = []
 
-for index, item in enumerate(kaheksasklass_table_tables):
-    raw_lessons.append(kaheksasklass_table_tables[index])
-    
+    del kaheksasklass_table_tables[0:6]
 
-processed_lessons = []
-for lesson in raw_lessons:
-    if raw_lessons.index(lesson) in [0, 6, 12, 18, 24, 30, 36, 42, 48, 54]:
-        continue
-    raw_info = lesson.find_all("font")
-    if raw_info:
-        processed_info = []
-        if len(raw_info) == 3:
-            for info in raw_info:
-                info_text = info.text.strip()
-                processed_info.append(info_text)
-            processed_lessons.append(processed_info)
-        elif len(raw_info) == 6:
-            first_lesson_info = []
-            second_lesson_info = []
-            double_lesson_info = []
-            for i in [0,1,2]:
-                info = raw_info[i]
-                info_text = info.text.strip()
-                first_lesson_info.append(info_text)
-            double_lesson_info.append(first_lesson_info)
-            for i in [3,4,5]:
-                info = raw_info[i]
-                info_text = info.text.strip()
-                second_lesson_info.append(info_text)
-            double_lesson_info.append(second_lesson_info)
-            processed_lessons.append(double_lesson_info)
-        elif len(raw_info) == 9:
-            first_lesson_info = []
-            second_lesson_info = []
-            third_lesson_info = []
-            triple_lesson_info = []
-            for i in [0,1,2]:
-                info = raw_info[i]
-                info_text = info.text.strip()
-                first_lesson_info.append(info_text)
-            triple_lesson_info.append(first_lesson_info)
-            for i in [3,4,5]:
-                info = raw_info[i]
-                info_text = info.text.strip()
-                second_lesson_info.append(info_text)
-            triple_lesson_info.append(second_lesson_info)
-            for i in [6,7,8]:
-                info = raw_info[i]
-                info_text = info.text.strip()
-                third_lesson_info.append(info_text)
-            triple_lesson_info.append(third_lesson_info)
-            processed_lessons.append(triple_lesson_info)
+    for index, item in enumerate(kaheksasklass_table_tables):
+        raw_lessons.append(kaheksasklass_table_tables[index])
+        
+
+    processed_lessons = list()
+    for lesson in raw_lessons:
+        if raw_lessons.index(lesson) in [0, 6, 12, 18, 24, 30, 36, 42, 48, 54]:
+            continue
+        raw_info = lesson.find_all("font")
+        if raw_info:
+            processed_info = []
+            if len(raw_info) == 3:
+                for info in raw_info:
+                    info_text = info.text.strip()
+                    processed_info.append(info_text)
+                processed_lessons.append(processed_info)
+            elif len(raw_info) == 6:
+                first_lesson_info = []
+                second_lesson_info = []
+                double_lesson_info = []
+                for i in [0,1,2]:
+                    info = raw_info[i]
+                    info_text = info.text.strip()
+                    first_lesson_info.append(info_text)
+                double_lesson_info.append(first_lesson_info)
+                for i in [3,4,5]:
+                    info = raw_info[i]
+                    info_text = info.text.strip()
+                    second_lesson_info.append(info_text)
+                double_lesson_info.append(second_lesson_info)
+                processed_lessons.append(double_lesson_info)
+            elif len(raw_info) == 9:
+                first_lesson_info = []
+                second_lesson_info = []
+                third_lesson_info = []
+                triple_lesson_info = []
+                for i in [0,1,2]:
+                    info = raw_info[i]
+                    info_text = info.text.strip()
+                    first_lesson_info.append(info_text)
+                triple_lesson_info.append(first_lesson_info)
+                for i in [3,4,5]:
+                    info = raw_info[i]
+                    info_text = info.text.strip()
+                    second_lesson_info.append(info_text)
+                triple_lesson_info.append(second_lesson_info)
+                for i in [6,7,8]:
+                    info = raw_info[i]
+                    info_text = info.text.strip()
+                    third_lesson_info.append(info_text)
+                triple_lesson_info.append(third_lesson_info)
+                processed_lessons.append(triple_lesson_info)
+            else:
+                for info in raw_info:
+                    info_text = info.text.strip()
+                    processed_info.append(info_text)
+                processed_lessons.append(processed_info)
         else:
-            for info in raw_info:
-                info_text = info.text.strip()
-                processed_info.append(info_text)
-            processed_lessons.append(processed_info)
-    else:
-        empty = []
-        processed_lessons.append(empty)
+            empty = []
+            processed_lessons.append(empty)
 
-processed_lessons = list(divide_chunks(processed_lessons, 5))
+    # processed_lessons = list(divide_chunks(processed_lessons, 5))
 
-print(processed_lessons)
-#print(kaheksasklass_table_tables[23])
+    return(processed_lessons)
+    #print(kaheksasklass_table_tables[23])
 
-# kaheksasklass_table_tables[0] - 1
-# kaheksasklass_table_tables[6] - 2
-# kaheksasklass_table_tables[12] - 3
-# kaheksasklass_table_tables[18] - 4
-# kaheksasklass_table_tables[24] - 5
-# kaheksasklass_table_tables[30] - 6
-# kaheksasklass_table_tables[36] - 7
-# kaheksasklass_table_tables[42] - 8
-# kaheksasklass_table_tables[48] - 9
-# kaheksasklass_table_tables[54] - 10
+    # kaheksasklass_table_tables[0] - 1
+    # kaheksasklass_table_tables[6] - 2
+    # kaheksasklass_table_tables[12] - 3
+    # kaheksasklass_table_tables[18] - 4
+    # kaheksasklass_table_tables[24] - 5
+    # kaheksasklass_table_tables[30] - 6
+    # kaheksasklass_table_tables[36] - 7
+    # kaheksasklass_table_tables[42] - 8
+    # kaheksasklass_table_tables[48] - 9
+    # kaheksasklass_table_tables[54] - 10
