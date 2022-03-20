@@ -18,7 +18,7 @@ def getnextlesson():
     lessons_5 = lessons[4::5]
 
     currenttime = datetime.datetime.now()
-    currenttime = datetime.datetime(2022, 3, 22, 11, 20)
+    currenttime = datetime.datetime(2022, 3, 22, 10, 37)
     today = str(currenttime.weekday() + 1)
     lessons_ = "lessons_"
     today_lessons = lessons_ + today
@@ -30,14 +30,14 @@ def getnextlesson():
         # Lesson is ongoing
         if currenttime.time() > time.time() and currenttime.time() < lesson_end.time():
             time_until_lesson_end = lesson_end - currenttime
-            info = ["Tund käib", today_lessons[times.index(time)], time_until_lesson_end.total_seconds()]
+            info = ["Tund lõpeb:", today_lessons[times.index(time)], time_until_lesson_end.total_seconds()]
             return(info)
             break
         # Time until next lesson
         if currenttime.time() < time.time() and currenttime.time() < lesson_end.time():
             next_lesson = times[times.index(time)]
             time_until_next_lesson = next_lesson - currenttime
-            info = ["Tund algab", today_lessons[times.index(time)], time_until_next_lesson.total_seconds()]
+            info = ["Tund algab:", today_lessons[times.index(time)], time_until_next_lesson.total_seconds()]
             return(info)
             break
 

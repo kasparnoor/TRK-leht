@@ -41,7 +41,7 @@ def getlessons():
                 for info in raw_info:
                     info_text = info.text.strip()
                     processed_info.append(info_text)
-                processed_lessons.append(processed_info)
+                processed_lessons.append([processed_info])
             elif len(raw_info) == 6:
                 first_lesson_info = []
                 second_lesson_info = []

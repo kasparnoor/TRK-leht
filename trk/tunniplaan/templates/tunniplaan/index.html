@@ -8,7 +8,11 @@
     <title>Tunniplaan | Kaspar Noor</title>
     <meta name="description" content="" />
     <meta name="author" content="Kaspar Noor" />
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script
+    type="text/javascript"
+    src="{% static 'tunniplaan/js/jquery.countdown.js' %}"
+  ></script>
     <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,8 +39,11 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="icon" type="image/png" href="images/favicon.png" />
   </head>
+  
   <body>
+    
     {% if info %}
+    <input type="hidden" id="infoTwo" name="variable" value="{{ info.2 }}" />
     <div class="container">
       <h1
         style="text-align: center; margin-top: 5%; font-weight: bold"
@@ -47,13 +54,8 @@
       <p style="text-align: center">
         See rakendus teeb teie elu ehk natukene lihtsamaks.
       </p>
-      <div style="margin-top: 20%" class="row">
-        {% for infopiece in info.1 %}
-        <div class="four columns">
-          <h2 style="text-align: center">{{infopiece}}</h2>
-        </div>
-        {% endfor %}
-      </div>
+      <hr />
+      <h3 style="text-align: center; margin-top: 5%">{{info.0}}</h3>
       <ul id="countdown">
         <li>
           <span class="days">00</span>
@@ -75,33 +77,60 @@
           <p class="seconds_text">Sekundit</p>
         </li>
       </ul>
+      <table class="u-full-width">
+      <thead>
+        <tr>
+          <th>Tund</th>
+          <th>Klass</th>
+          <th>Õpetaja</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for infopiece in info.1 %}
+        <tr>
+          {% for infopiece2 in infopiece %}
+          <td>{{infopiece2}}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
     </div>
+
     {% else %}
     <p>Ilmnes viga.</p>
     {% endif %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script
-      type="text/javascript"
-      src="{% static 'tunniplaan/js/jquery.countdown.js' %}"
-    ></script>
     <script class="source" type="text/javascript">
       var now = new Date();
       var day = now.getDate();
-      var month = now.getMonth() + 1;
-      var year = now.getFullYear() + 1;
-
-      var nextyear = month + "/" + day + "/" + year + " 07:07:07";
+      var month = now.getMonth();
+      var year = now.getFullYear();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+      var infoTwo = parseFloat(document.getElementById("infoTwo").value);
+      var newseconds = seconds + Math.floor(infoTwo);
+      var nextlesson =
+        month +
+        1 +
+        "/" +
+        day +
+        "/" +
+        year +
+        " " +
+        hours +
+        ":" +
+        minutes +
+        ":" +
+        newseconds;
 
       $("#countdown").countdown(
         {
-          date: nextyear, // TODO Date format: 07/27/2017 17:00:00
+          date: nextlesson, // TODO Date format: 07/27/2017 17:00:00
           offset: +2, // TODO Your Timezone Offset
-          day: "Day",
-          days: "Days",
           hideOnComplete: true,
         },
         function (container) {
-          alert("Done!");
+          document.location.reload();
         }
       );
     </script>
