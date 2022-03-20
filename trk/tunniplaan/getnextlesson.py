@@ -18,12 +18,12 @@ def getnextlesson():
     lessons_5 = lessons[4::5]
 
     currenttime = datetime.datetime.now()
-    currenttime = datetime.datetime(2022, 3, 22, 10, 37)
+    #currenttime = datetime.datetime(2022, 3, 22, 10, 37)
     today = str(currenttime.weekday() + 1)
     lessons_ = "lessons_"
     today_lessons = lessons_ + today
     if today_lessons in "lessons_6" or today_lessons in "lessons_7":
-        return "weekends"
+        return
     today_lessons = locals()[today_lessons]
     for time in times:
         lesson_end = time + timedelta(minutes=45)
