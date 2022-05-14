@@ -2,17 +2,18 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+    <script
+    type="text/javascript"
+    src="{% static 'tunniplaan/js/hnl.mobileConsole.js' %}"
+  ></script>
+
     <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta charset="utf-8" />
     <title>Tunniplaan | Kaspar Noor</title>
     <meta name="description" content="" />
     <meta name="author" content="Kaspar Noor" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script
-    type="text/javascript"
-    src="{% static 'tunniplaan/js/jquery.countdown.js' %}"
-  ></script>
+    <script src="https://raw.githubusercontent.com/mckamey/countdownjs/master/countdown.min.js"></script>
     <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -28,13 +29,9 @@
     <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-    <link rel="stylesheet" href="{% static 'polls/css/normalize.css' %}" />
-    <link rel="stylesheet" href="{% static 'polls/css/skeleton.css' %}" />
-    <link
-      rel="stylesheet"
-      href="{% static 'tunniplaan/css/jquery.countdown.css' %}"
-    />
-
+    <link rel="stylesheet" href="{% static 'tunniplaan/css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'tunniplaan/css/skeleton.css' %}" />
+    <link rel="stylesheet" href="{% static 'tunniplaan/css/countdown.css' %}" />
     <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="icon" type="image/png" href="images/favicon.png" />
@@ -44,12 +41,22 @@
     
     {% if info %}
     <input type="hidden" id="infoTwo" name="variable" value="{{ info.2 }}" />
+    <input type="hidden" id="infoThree" name="variable" value="{{ info.3 }}" />
     <div class="container">
+      <table class="u-full-width">
+        <thead>
+          <tr>
+            <th><p style="text-align: left;">Loodud armastusega</p>
+          </th>
+            <th><p style="text-align: right;">Kaspar Noor 8.c</p></th>
+          </tr>
+        </thead>
+      </table>
       <h1
         style="text-align: center; margin-top: 5%; font-weight: bold"
         class="u-full-width"
       >
-        141c Tunniplaani rakendus
+        Tallina Reaalkooli tunniplaanirakendus
       </h1>
       <p style="text-align: center">
         See rakendus teeb teie elu ehk natukene lihtsamaks.
@@ -58,23 +65,18 @@
       <h3 style="text-align: center; margin-top: 5%">{{info.0}}</h3>
       <ul id="countdown">
         <li>
-          <span class="days">00</span>
-          <p class="days_text">Päeva</p>
+          <span class="hours" id="hours">00</span>
+          <p class="hours_text" data-test="00">Tundi</p>
         </li>
         <li class="seperator">:</li>
         <li>
-          <span class="hours">00</span>
-          <p class="hours_text">Tundi</p>
+          <span class="minutes" id="minutes">00</span>
+          <p class="minutes_text" data-test="00">Minutit</p>
         </li>
         <li class="seperator">:</li>
         <li>
-          <span class="minutes">00</span>
-          <p class="minutes_text">Minutit</p>
-        </li>
-        <li class="seperator">:</li>
-        <li>
-          <span class="seconds">00</span>
-          <p class="seconds_text">Sekundit</p>
+          <span class="seconds" id="seconds">00</span>
+          <p class="seconds_text" data-test="00">Sekundit</p>
         </li>
       </ul>
       <table class="u-full-width">
@@ -98,43 +100,13 @@
 
     {% else %}
     <div class="container">
-      <h1 style="text-align: center; margin-top: 40%">Nautige nädalavahetust!</h1>
+      <h1 style="text-align: center; margin-top: 40%">Kool on tänaseks läbi!</h1>
     </div>
     {% endif %}
-    <script class="source" type="text/javascript">
-      var now = new Date();
-      var day = now.getDate();
-      var month = now.getMonth();
-      var year = now.getFullYear();
-      var hours = now.getHours();
-      var minutes = now.getMinutes();
-      var seconds = now.getSeconds();
-      var infoTwo = parseFloat(document.getElementById("infoTwo").value);
-      var newseconds = seconds + Math.floor(infoTwo);
-      var nextlesson =
-        month +
-        1 +
-        "/" +
-        day +
-        "/" +
-        year +
-        " " +
-        hours +
-        ":" +
-        minutes +
-        ":" +
-        newseconds;
-
-      $("#countdown").countdown(
-        {
-          date: nextlesson, // TODO Date format: 07/27/2017 17:00:00
-          offset: +2, // TODO Your Timezone Offset
-          hideOnComplete: true,
-        },
-        function (container) {
-          document.location.reload();
-        }
-      );
-    </script>
+    
+    <script
+    type="text/javascript"
+    src="{% static 'tunniplaan/js/countdown.js' %}"
+  ></script>
   </body>
 </html>

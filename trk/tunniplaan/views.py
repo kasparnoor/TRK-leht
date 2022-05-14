@@ -1,12 +1,14 @@
-from http.client import HTTPResponse
 from django.shortcuts import render
+from django.http import HttpResponse
+from rest_framework.views import APIView, status
 from rest_framework.response import Response
 from tunniplaan import getnextlesson
 from django.views import generic
-
-class IndexView(generic.ListView):
+from tunniplaan.models import *
+from tunniplaan.forms import *
+def index(response):
     template_name = 'tunniplaan/index.html'
-    context_object_name = 'info'
-
-    def get_queryset(self):
+    def get_queryset():
         return getnextlesson.getnextlesson()
+    form = ClassModelForm
+    return render(response, template_name, {"info":get_queryset(), "form":form})

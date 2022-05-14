@@ -1,4 +1,5 @@
-from django.db import models
+from django import forms
+from tunniplaan.models import *
 
 CLASSMODEL_CHOICES = (
     ('5a','5A'),
@@ -25,8 +26,8 @@ CLASSMODEL_CHOICES = (
     ('12c','12C'),
 )
 
-class ClassModel(models.Model):
-    name            = models.CharField(max_length=3, choices=CLASSMODEL_CHOICES, default='8c')
-    head_teacher           = models.CharField(max_length=40)
-    def __str__(self):
-        return self.name
+class ClassModelForm(forms.Form):
+    name=forms.Select(choices=CLASSMODEL_CHOICES)
+
+        
+        

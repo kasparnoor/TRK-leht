@@ -2,6 +2,7 @@ import enum
 from itertools import count
 import requests
 from bs4 import BeautifulSoup
+from tunniplaan import geturls
 
 def divide_chunks(l, n):
       
@@ -11,7 +12,7 @@ def divide_chunks(l, n):
 
 def getlessons():
 
-    URL = "https://real.edu.ee/oppetoo/tunniplaan/4per/Reaal/klassid/d5pe1A_8C.htm"
+    URL = "https://real.edu.ee/oppetoo/tunniplaan/5per/Reaal/klassid/d5pe1A_8C.htm"
     page = requests.get(URL)
 
     data = []
@@ -78,6 +79,29 @@ def getlessons():
                     third_lesson_info.append(info_text)
                 triple_lesson_info.append(third_lesson_info)
                 processed_lessons.append(triple_lesson_info)
+            elif len(raw_info) == 4:
+                raw_info.insert(1, " ")
+                raw_info.insert(4, " ")
+                first_lesson_info = []
+                second_lesson_info = []
+                double_lesson_info = []
+                for i in [0,1,2]:
+                    info = raw_info[i]
+                    try:
+                        info_text = info.text.strip()
+                    except:
+                        print("error")
+                    first_lesson_info.append(info_text)
+                double_lesson_info.append(first_lesson_info)
+                for i in [3,4,5]:
+                    info = raw_info[i]
+                    try:
+                        info_text = info.text.strip()
+                    except:
+                        print("error")
+                    second_lesson_info.append(info_text)
+                double_lesson_info.append(second_lesson_info)
+                processed_lessons.append(double_lesson_info)
             else:
                 for info in raw_info:
                     info_text = info.text.strip()
@@ -102,3 +126,4 @@ def getlessons():
     # kaheksasklass_table_tables[42] - 8
     # kaheksasklass_table_tables[48] - 9
     # kaheksasklass_table_tables[54] - 10
+print(getlessons())

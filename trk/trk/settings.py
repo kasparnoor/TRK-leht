@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'tailwind',
-    'polls.apps.PollsConfig',
     'tunniplaan.apps.TunniplaanConfig',
     'django.contrib.admin',
     'django.contrib.auth',
