@@ -8,7 +8,6 @@ services:
       - .env
     build:
       context: .
-      dockerfile: ./trk/Dockerfile/
     ports:
       - "8000:8000"
   nginx:
