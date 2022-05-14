@@ -1,16 +1,23 @@
 version: "3.7"
+
 services:
-  web:
-    container_name: dev_backend
+  django_gunicorn:
+    volumes:
+      - static:/static
+    env_file:
+      - .env
     build:
       context: .
-      dockerfile: Dockerfile
-    restart: always
-    env_file: dev.env
-    command: gunicorn trk.wsgi:application --bind 0.0.0.0:5000
+    ports:
+      - "8000:8000"
+  nginx:
+    build: ./nginx
     volumes:
-      - .:/app
-      - static_volume:/app/static
+      - static:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - django_gunicorn
+
 volumes:
-  static_volume:
-  postgres_data:
+  static:
