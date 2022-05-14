@@ -1,19 +1,9 @@
 version: "3.7"
 services:
-  nginx:
-    container_name: dev_web
-    restart: on-failure
-    image: nginx:1.19.8
-    volumes:
-      - ./nginx/prod/nginx.conf:/etc/nginx/conf.d/default.conf
-      - static_volume:/app/static
-    ports:
-      - 80:80
-    depends_on:
-      - web
   web:
     container_name: dev_backend
-    build: .
+    build:
+      dockerfile: Dockerfile
     restart: always
     env_file: dev.env
     command: gunicorn trk.wsgi:application --bind 0.0.0.0:5000
