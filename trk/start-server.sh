@@ -3,5 +3,5 @@
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ] ; then
     (cd trk; python manage.py createsuperuser --no-input)
 fi
-(cd trk gunicorn trk.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3) &
+(cd trk; gunicorn trk.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3) &
 nginx -g "daemon off;"
