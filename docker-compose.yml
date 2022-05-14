@@ -20,8 +20,6 @@ services:
     volumes:
       - .:/app
       - static_volume:/app/static
-    depends_on:
-      - db
 volumes:
   static_volume:
   postgres_data:
