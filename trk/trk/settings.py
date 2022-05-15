@@ -21,13 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "Zg-pBXBYB_X?h!Xx?#vFb2RN@uh?jeV#w=fkeEvZ%-eEejCFcG@2&pb%WqDadw_zdVJcG6#@qU@hySr*h-WR2ZAEVq6E*PcZMxyyzT$V6X^--AQV%&%%?bPX#Y%6z54DV9QzQ=@FN$&hbxhvAwALS*mp4%YemnvLHsfK9DA2G&^XThR29hyQZs%nRnwe*4z2*Z2yFz?nKYTx?xrgCn9v#U%y!$Rv8fTbDQ=MgRd!+ZAdtu9sF!J74md5DxxJ2#VC"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get("DEBUG", default=0))
+DEBUG = 1
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -118,9 +117,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = os.path.join(BASE_DIR, "static")
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
