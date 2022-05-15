@@ -57,7 +57,7 @@ def getnextlesson():
         if currenttime.time() < time.time() and currenttime.time() < lesson_end.time():
             next_lesson = times[times.index(time)]
             time_until_next_lesson = next_lesson - currenttime
-            info = ["Järgmise tunni aluseni:", today_lessons[times.index(time)], time_until_next_lesson.total_seconds()]
+            info = ["Järgmise tunni alguseni:", today_lessons[times.index(time)], time_until_next_lesson.total_seconds()]
             return(info)
             break
 
