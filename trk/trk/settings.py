@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'tailwind',
+    "whitenoise.runserver_nostatic",
     'tunniplaan.apps.TunniplaanConfig',
     'django.contrib.admin',
     'django.contrib.auth',
