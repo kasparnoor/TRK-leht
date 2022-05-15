@@ -3,6 +3,9 @@ from itertools import count
 import requests
 from bs4 import BeautifulSoup
 from tunniplaan import geturls
+import requests_cache
+
+requests_cache.install_cache(cache_name='getlessons_cache', backend='sqlite', expire_after=180)
 
 def divide_chunks(l, n):
       

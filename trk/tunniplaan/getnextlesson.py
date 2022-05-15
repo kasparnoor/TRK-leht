@@ -5,6 +5,9 @@ import os
 
 import datetime
 from datetime import timedelta
+import requests_cache
+
+requests_cache.install_cache(cache_name='getnextlesson_cache', backend='sqlite', expire_after=180)
 def getnextlesson():
     
     config_obj = configparser.ConfigParser()

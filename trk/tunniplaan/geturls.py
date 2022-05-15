@@ -5,6 +5,9 @@ import datetime
 import configparser
 import os 
 import re
+import requests_cache
+
+requests_cache.install_cache(cache_name='geturls_cache', backend='sqlite', expire_after=180)
 
 def geturls():
     

@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup
 import datetime
 import configparser
 import os 
+import requests_cache
+
+requests_cache.install_cache(cache_name='gettimes_cache', backend='sqlite', expire_after=180)
 def gettimes():
     
     config_obj = configparser.ConfigParser()
