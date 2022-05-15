@@ -1,3 +1,4 @@
+from unittest import skip
 import requests
 from bs4 import BeautifulSoup
 import datetime
@@ -40,11 +41,13 @@ def gettimes():
     # Creating the table for times
     times = []
     # Checking every row in previously parsed columns
+
     for row in data:
         # Removing eating breakes from the list
-        if "söö" in row[0]:
+        if "söög" in row[0]:
             data.remove(row)
-            continue;
+            break;
+    for row in data:
         # Formatting the time a bit
         index = row[0][0]
         time = row[1].split('–')[0]
